@@ -11,6 +11,8 @@ interface AppContextType {
   makeDecision: (candidateId: string, decision: Decision) => void;
   getPendingCandidates: (roleId?: number) => typeof allCandidates;
   allRoles: typeof roles;
+  selectedCandidate: typeof allCandidates[0] | null;
+  setSelectedCandidate: (candidate: typeof allCandidates[0] | null) => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -18,6 +20,7 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [currentScreen, setCurrentScreen] = useState<Screen>('home');
   const [selectedRole, setSelectedRole] = useState<Role | null>(null);
+  const [selectedCandidate, setSelectedCandidate] = useState<typeof allCandidates[0] | null>(null);
   const [decisions, setDecisions] = useState<Record<string, Decision>>({});
 
   const makeDecision = (candidateId: string, decision: Decision) => {
@@ -41,7 +44,9 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       decisions,
       makeDecision,
       getPendingCandidates,
-      allRoles: roles
+      allRoles: roles,
+      selectedCandidate,
+      setSelectedCandidate
     }}>
       {children}
     </AppContext.Provider>

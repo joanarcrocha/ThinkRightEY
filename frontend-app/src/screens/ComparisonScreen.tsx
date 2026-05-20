@@ -5,7 +5,7 @@ import { Award, Briefcase, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export const ComparisonScreen: React.FC = () => {
-  const { allRoles, allRoles: rolesList, getPendingCandidates } = useAppContext();
+  const { allRoles, allRoles: rolesList, getPendingCandidates, setSelectedCandidate, setCurrentScreen } = useAppContext();
   const [activeRoleId, setActiveRoleId] = useState<number>(1);
 
   const activeRole = rolesList.find(r => r.roleId === activeRoleId);
@@ -85,7 +85,13 @@ export const ComparisonScreen: React.FC = () => {
                 </p>
               </div>
 
-              <button className="w-full py-2 bg-gray-50 hover:bg-gray-100 text-dark rounded-xl text-sm font-bold flex items-center justify-center gap-1 transition-colors">
+              <button 
+                onClick={() => {
+                  setSelectedCandidate(candidate);
+                  setCurrentScreen('detail');
+                }}
+                className="w-full py-2 bg-gray-50 hover:bg-gray-100 text-dark rounded-xl text-sm font-bold flex items-center justify-center gap-1 transition-colors"
+              >
                 View Full Profile <ChevronRight size={16} />
               </button>
             </motion.div>

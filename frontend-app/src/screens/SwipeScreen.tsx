@@ -25,14 +25,14 @@ export const SwipeScreen: React.FC = () => {
     }, 300);
   };
 
-  const ActionButton = ({ onClick, icon: Icon, label, colorClass }: any) => (
+  const ActionButton = ({ onClick, icon: Icon, label, customClass }: any) => (
     <motion.button
       whileTap={{ scale: 0.9 }}
       onClick={onClick}
-      className={`w-16 h-16 rounded-full flex flex-col items-center justify-center shadow-soft ${colorClass} hover:shadow-soft-lg transition-shadow bg-white`}
+      className={`action-btn ${customClass}`}
     >
       <Icon size={24} />
-      <span className="text-[10px] font-bold mt-1 opacity-80">{label}</span>
+      <span className="text-[10px] font-black mt-1 opacity-90">{label}</span>
     </motion.button>
   );
 
@@ -98,10 +98,10 @@ export const SwipeScreen: React.FC = () => {
       {/* Action Buttons */}
       {candidates.length > 0 && (
         <div className="flex justify-center gap-4 mt-8 pb-4">
-          <ActionButton onClick={() => handleSwipe('Reject')} icon={X} label="Reject" colorClass="text-accent-red" />
-          <ActionButton onClick={() => handleSwipe('Need More Info')} icon={HelpCircle} label="More Info" colorClass="text-blue-500" />
-          <ActionButton onClick={() => handleSwipe('Hold')} icon={Pause} label="Hold" colorClass="text-accent-amber" />
-          <ActionButton onClick={() => handleSwipe('Shortlist')} icon={Check} label="Shortlist" colorClass="text-accent-green" />
+          <ActionButton onClick={() => handleSwipe('Reject')} icon={X} label="Reject" customClass="reject-button text-white" />
+          <ActionButton onClick={() => handleSwipe('Need More Info')} icon={HelpCircle} label="More Info" customClass="info-button" />
+          <ActionButton onClick={() => handleSwipe('Hold')} icon={Pause} label="Hold" customClass="hold-button" />
+          <ActionButton onClick={() => handleSwipe('Shortlist')} icon={Check} label="Shortlist" customClass="shortlist-button text-ink" />
         </div>
       )}
     </div>

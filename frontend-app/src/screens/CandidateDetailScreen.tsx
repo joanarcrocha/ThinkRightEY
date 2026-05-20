@@ -9,8 +9,8 @@ import { ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, Radar } fro
 
 export const CandidateDetailScreen: React.FC = () => {
   // For this demo, we'll just show the first pending candidate if there's no explicitly selected candidate
-  const { getPendingCandidates, setCurrentScreen } = useAppContext();
-  const candidate = getPendingCandidates()[0];
+  const { getPendingCandidates, setCurrentScreen, selectedCandidate } = useAppContext();
+  const candidate = selectedCandidate || getPendingCandidates()[0];
 
   if (!candidate) {
     return (

@@ -21,8 +21,12 @@ export const SwipeScreen: React.FC = () => {
   const [candidates, setCandidates] = useState(getPendingCandidates(selectedRole?.roleId));
 
   useEffect(() => {
+    const pending = getPendingCandidates(selectedRole?.roleId);
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setCandidates(getPendingCandidates(selectedRole?.roleId));
+    setCandidates(pending);
+    if (pending.length === 0 && selectedRole) {
+      setCurrentScreen('review-completed');
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedRole]);
 
@@ -34,7 +38,13 @@ export const SwipeScreen: React.FC = () => {
     
     // Remove current card after animation
     setTimeout(() => {
-      setCandidates(prev => prev.slice(1));
+      setCandidates(prev => {
+        const next = prev.slice(1);
+        if (next.length === 0) {
+          setCurrentScreen('review-completed');
+        }
+        return next;
+      });
     }, 300);
   };
 

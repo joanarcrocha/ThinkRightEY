@@ -5,12 +5,25 @@ import { Decision } from '../types';
 import { X, Check, Pause, HelpCircle, ArrowLeft } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const ActionButton = ({ onClick, icon: Icon, label, customClass }: { onClick: () => void; icon: React.ElementType; label: string; customClass: string }) => (
+  <motion.button
+    whileTap={{ scale: 0.9 }}
+    onClick={onClick}
+    className={`action-btn ${customClass}`}
+  >
+    <Icon size={24} />
+    <span className="text-[10px] font-black mt-1 opacity-90">{label}</span>
+  </motion.button>
+);
+
 export const SwipeScreen: React.FC = () => {
   const { selectedRole, setSelectedRole, getPendingCandidates, makeDecision, setCurrentScreen } = useAppContext();
   const [candidates, setCandidates] = useState(getPendingCandidates(selectedRole?.roleId));
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setCandidates(getPendingCandidates(selectedRole?.roleId));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedRole]);
 
   const handleSwipe = (decision: Decision) => {
@@ -25,16 +38,7 @@ export const SwipeScreen: React.FC = () => {
     }, 300);
   };
 
-  const ActionButton = ({ onClick, icon: Icon, label, customClass }: any) => (
-    <motion.button
-      whileTap={{ scale: 0.9 }}
-      onClick={onClick}
-      className={`action-btn ${customClass}`}
-    >
-      <Icon size={24} />
-      <span className="text-[10px] font-black mt-1 opacity-90">{label}</span>
-    </motion.button>
-  );
+
 
   return (
     <div className="h-[80vh] flex flex-col relative pt-2">
